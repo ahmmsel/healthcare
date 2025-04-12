@@ -14,18 +14,31 @@ function logout() {
 localforage.config({ name: "SmartHealthAdvisor" });
 
 function registerUser() {
-  const user = {
-    name: document.getElementById("fullName").value,
-    age: document.getElementById("age").value,
-    grade: document.getElementById("grade").value,
-    illness: document.getElementById("illness").value,
-    email: document.getElementById("regEmail").value,
-    password: document.getElementById("regPassword").value,
-    symptoms: [],
-  };
-  localforage.setItem(user.email, user).then(() => {
-    alert("تم التسجيل بنجاح!");
-    showPage("login");
+  const email = document.getElementById("regEmail").value;
+
+  // Check if the email already exists in localforage
+  localforage.getItem(email).then((existingUser) => {
+    if (existingUser) {
+      // If the user already exists, show an alert
+      alert("الحساب موجود بالفعل");
+    } else {
+      // If the email is not taken, proceed with registration
+      const user = {
+        name: document.getElementById("fullName").value,
+        age: document.getElementById("age").value,
+        grade: document.getElementById("grade").value,
+        illness: document.getElementById("illness").value,
+        email: email,
+        password: document.getElementById("regPassword").value,
+        symptoms: [],
+      };
+
+      // Save the new user in localforage
+      localforage.setItem(user.email, user).then(() => {
+        alert("تم التسجيل بنجاح!");
+        showPage("login");
+      });
+    }
   });
 }
 
@@ -60,10 +73,24 @@ function analyzeSymptoms() {
   currentUser.symptoms = selected;
   localforage.setItem(currentUser.email, currentUser);
 
-  let result = "أعراض برد خفيفة – يُوصى بالراحة.";
-  if (selected.includes("Fever") && selected.includes("Nausea")) {
-    result = "تحذير: أعراض شديدة – يجب إبلاغ ولي الأمر فورًا!";
+  let result = "";
+
+  // Create the logic for symptom analysis
+  if (selected.includes("Headache") && selected.includes("Fatigue")) {
+    result = "يجب الحصول على قسط كافي من النوم";
+  } else if (selected.includes("Dizziness") && selected.includes("Paleness")) {
+    result = "الجلوس والاكل فورًا";
+  } else if (
+    selected.includes("Nosebleed") &&
+    selected.includes("Paleness") &&
+    selected.includes("Headache")
+  ) {
+    result = "رعاف (نزيف الانف) - اماله الراس للامام والضغط على طرف الانف";
+  } else {
+    result = "أعراض غير محددة - يُوصى بمراجعة الطبيب.";
   }
+
+  // Add chronic illness message
   if (currentUser.illness !== "none") {
     result += `\nتنبيه: يعاني الطالب من ${
       currentUser.illness === "asthma"
@@ -74,6 +101,7 @@ function analyzeSymptoms() {
     }، يُفضل التواصل مع ولي الأمر.`;
   }
 
+  // Display the result on the results page
   document.getElementById("resultText").innerText = result;
   showPage("results");
 }
