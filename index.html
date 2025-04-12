@@ -98,17 +98,37 @@
       
 
       <!-- Symptom Page -->
-      <section id="symptoms" class="page">
+      <section id="symptoms" class="page active">
         <h2>اختر الأعراض</h2>
-        <div class="checkbox-group">
-          <label><input type="checkbox" value="Headache" /> صداع</label>
-          <label><input type="checkbox" value="Fever" /> حمى</label>
-          <label><input type="checkbox" value="Dizziness" /> دوخة</label>
-          <label><input type="checkbox" value="Nausea" /> غثيان</label>
-        </div>
-        <div class="button-group">
-          <button onclick="analyzeSymptoms()">تحليل الحالة</button>
-          <button onclick="logout()">تسجيل الخروج</button>
+      
+        <div class="symptom-card">
+          <div class="checkbox-group">
+            <label class="checkbox-option">
+              <input type="checkbox" value="Headache" />
+              <span class="checkmark"></span>
+              صداع
+            </label>
+            <label class="checkbox-option">
+              <input type="checkbox" value="Fever" />
+              <span class="checkmark"></span>
+              حمى
+            </label>
+            <label class="checkbox-option">
+              <input type="checkbox" value="Dizziness" />
+              <span class="checkmark"></span>
+              دوخة
+            </label>
+            <label class="checkbox-option">
+              <input type="checkbox" value="Nausea" />
+              <span class="checkmark"></span>
+              غثيان
+            </label>
+          </div>
+      
+          <div class="button-group">
+            <button onclick="analyzeSymptoms()">تحليل الحالة</button>
+            <button onclick="logout()">تسجيل الخروج</button>
+          </div>
         </div>
       </section>
 
