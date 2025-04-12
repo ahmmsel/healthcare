@@ -75,22 +75,45 @@ function analyzeSymptoms() {
 
   let result = "";
 
-  // Create the logic for symptom analysis
-  if (selected.includes("Headache") && selected.includes("Fatigue")) {
-    result = "يجب الحصول على قسط كافي من النوم";
-  } else if (selected.includes("Dizziness") && selected.includes("Paleness")) {
-    result = "الجلوس والاكل فورًا";
-  } else if (
-    selected.includes("Nosebleed") &&
-    selected.includes("Paleness") &&
-    selected.includes("Headache")
-  ) {
-    result = "رعاف (نزيف الانف) - اماله الراس للامام والضغط على طرف الانف";
+  // تحليل الحالات بناءً على التوليفات
+  const has = (symptom) => selected.includes(symptom);
+
+  if (has("Fatigue") && has("Headache")) {
+    result = "خمول - صداع > قلة نوم - يُوصى بالنوم الجيد والراحة.";
+  } else if (has("Dizziness") && has("Paleness")) {
+    result = "دوخة - شحوب > قلة الأكل أو نقص الحديد - يُنصح بتناول وجبة مغذية.";
+  } else if (has("Nosebleed") && has("Paleness") && has("Headache")) {
+    result =
+      "دم من الأنف - شحوب - صداع > رعاف - أمل رأسك للأمام واضغط على الأنف.";
+  } else if (has("Nausea") && has("Headache")) {
+    result =
+      "غثيان - صداع > احتمالية اضطراب هضمي - راقب الحالة وخذ قسطًا من الراحة.";
+  } else if (has("Fatigue") && has("Dizziness")) {
+    result = "خمول - دوخة > انخفاض ضغط الدم أو جفاف - شرب الماء والجلوس فورًا.";
+  } else if (has("Nausea") && has("Dizziness")) {
+    result =
+      "غثيان - دوخة > اضطراب مؤقت في المعدة - يُنصح بالراحة ومراقبة الحالة.";
+  } else if (has("Nausea") && has("Paleness")) {
+    result = "غثيان - شحوب > انخفاض في مستوى السكر - تناول شيء حلو فورًا.";
+  } else if (has("Fatigue") && has("Nausea")) {
+    result =
+      "خمول - غثيان > قد تكون علامة على نزلة برد - يُفضل الراحة وشرب السوائل.";
+  } else if (has("Fatigue") && has("Paleness") && has("Dizziness")) {
+    result =
+      "خمول - شحوب - دوخة > أنيميا محتملة - يُنصح بزيارة الطبيب وإجراء تحاليل.";
+  } else if (has("Nosebleed") && has("Fatigue")) {
+    result =
+      "دم من الأنف - خمول > إرهاق شديد أو نقص فيتامينات - يُنصح بالراحة والتغذية.";
+  } else if (has("Headache") && !has("Fatigue") && !has("Nausea")) {
+    result =
+      "صداع فقط > قد يكون ناتجًا عن توتر أو نقص في الماء - يُوصى بالراحة وشرب الماء.";
+  } else if (selected.length === 0) {
+    result = "الرجاء اختيار عرض واحد على الأقل لتحليل الحالة.";
   } else {
-    result = "أعراض غير محددة - يُوصى بمراجعة الطبيب.";
+    result = "أعراض عامة - يُوصى بالراحة ومراقبة الحالة.";
   }
 
-  // Add chronic illness message
+  // إضافة تحذير في حالة المرض المزمن
   if (currentUser.illness !== "none") {
     result += `\nتنبيه: يعاني الطالب من ${
       currentUser.illness === "asthma"
@@ -98,10 +121,9 @@ function analyzeSymptoms() {
         : currentUser.illness === "diabetes"
         ? "السكري"
         : "الحساسية"
-    }، يُفضل التواصل مع ولي الأمر.`;
+    }، يُفضل التواصل مع ولي الأمر ومراعاة الحالة.`;
   }
 
-  // Display the result on the results page
   document.getElementById("resultText").innerText = result;
   showPage("results");
 }
