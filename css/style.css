@@ -1,0 +1,280 @@
+@font-face {
+  font-family: "Cairo";
+  src: url("/assets/fonts/Cairo-VariableFont_slnt,wght.ttf");
+}
+
+:root {
+  --primary: #37b5e6;
+  --primary-dark: #2a91b5;
+  --secondary: #f1f2f6;
+  --text-color: #2d3436;
+  --card-bg: #ffffff;
+  --highlight: #ffe5e5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Cairo", sans-serif;
+  background: linear-gradient(to bottom right, #dff9fb, #f1f2f6);
+  padding: 0;
+  margin: 0;
+  color: var(--text-color);
+  direction: rtl;
+  overflow-x: hidden;
+}
+
+h1,
+h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  animation: fadeInDown 1s ease-in-out;
+}
+
+.page {
+  display: none;
+  max-width: 900px;
+  margin: 60px auto;
+  padding: 30px;
+  background: var(--card-bg);
+  border-radius: 15px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+  animation: slideIn 0.8s ease;
+}
+
+.page.active {
+  display: block;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header img {
+  width: 100%;
+  height: auto;
+  max-width: 300px;
+  aspect-ratio: 1024 / 492;
+}
+
+.header .actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.header .actions button {
+  width: fit-content;
+}
+
+input,
+select,
+button {
+  display: block;
+  width: 100%;
+  margin: 12px 0;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #dcdde1;
+  font-size: 1rem;
+  transition: 0.3s ease;
+}
+
+input:focus,
+select:focus {
+  border-color: var(--primary);
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 184, 148, 0.4);
+}
+
+button {
+  background-color: var(--primary);
+  color: white;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+button:hover {
+  background-color: var(--primary-dark);
+  transform: scale(1.03);
+}
+
+.landing-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 3rem 0;
+}
+
+.landing-section.reverse {
+  flex-direction: row-reverse;
+}
+
+.landing-section img {
+  max-width: 100%;
+  height: 220px;
+  border-radius: 10px;
+}
+
+.landing-section .text-content {
+  max-width: 50%;
+  padding: 20px;
+}
+
+.landing-section h2 {
+  color: var(--text-color);
+  font-size: 1.7rem;
+  margin-bottom: 1rem;
+}
+
+.landing-section p {
+  color: var(--text-color);
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+}
+
+.button-group button {
+  width: 48%;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Supervisor Page Styles */
+#supervisor {
+  max-width: 900px;
+  margin: 60px auto;
+  padding: 30px;
+  background-color: var(--card-bg);
+  border-radius: 15px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+  animation: slideIn 0.8s ease;
+}
+
+/* Summary Box */
+.summary-box {
+  background: #e6f7ff;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #b2ebf2;
+}
+
+/* Filter and Button */
+select,
+button {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: 1px solid #dcdde1;
+  font-size: 1rem;
+  transition: 0.3s ease;
+}
+
+select:focus,
+button:focus {
+  border-color: var(--primary);
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 184, 148, 0.4);
+}
+
+button {
+  background-color: var(--primary);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: var(--primary-dark);
+  transform: scale(1.03);
+}
+
+/* Student List Grid */
+.student-list {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(280px, 1fr)
+  ); /* Dynamic grid with flexible columns */
+  gap: 20px;
+  justify-items: center;
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+
+/* Student Card */
+.student-card {
+  background-color: var(--card-bg);
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  width: 100%;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: 0.3s ease-in-out;
+  animation: fadeIn 0.6s ease;
+  text-align: center; /* Centering content inside the card */
+}
+
+.student-card.highlight {
+  background-color: #ffe5e5;
+  border-left: 6px solid red;
+}
+
+.student-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.student-card strong {
+  font-size: 1.2rem;
+  color: var(--primary);
+}
+
+.student-card p {
+  color: var(--text-color);
+  font-size: 1rem;
+  margin: 10px 0;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

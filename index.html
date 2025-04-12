@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>المستشار الصحي الذكي</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <!-- Landing Page -->
+      <section id="landing" class="page active">
+        <header class="header">
+          <img src="/assets/images/logo.png" alt="Logo" id="logo" />
+          <div class="actions">
+            <button onclick="showPage('login')">تسجيل الدخول</button>
+            <button onclick="showPage('register')">انشاء حساب</button>
+          </div>
+        </header>
+        <h1>المستشار الصحي الذكي</h1>
+        <p style="text-align: center">
+          منصة رقمية لمتابعة الحالة الصحية للطلاب في المدارس
+        </p>
+
+        <!-- Section 1 -->
+        <div class="landing-section reverse">
+          <div class="text-content">
+            <h2>رؤية صحية ذكية</h2>
+            <p>نساعد المدارس على تتبع الحالة الصحية للطلاب بسهولة وأمان.</p>
+          </div>
+          <img
+            src="/assets/images/undraw_medical-care_7m9g.svg"
+            alt="صحة الطلاب"
+          />
+        </div>
+
+        <!-- Section 2 -->
+        <div class="landing-section">
+          <div class="text-content">
+            <h2>تقارير فورية</h2>
+            <p>
+              عرض تنبيهات فورية حول الحالات الصحية المزمنة أو الأعراض الشديدة.
+            </p>
+          </div>
+          <img
+            src="/assets/images/undraw_creative-flow_t3kz.svg"
+            alt="تقارير سهلة"
+          />
+        </div>
+      </section>
+
+      <!-- Login Page -->
+      <section id="login" class="page">
+        <h2>تسجيل الدخول</h2>
+        <input type="email" id="loginEmail" placeholder="البريد الإلكتروني" />
+        <input type="password" id="loginPassword" placeholder="كلمة المرور" />
+        <button onclick="loginUser()">تسجيل الدخول</button>
+        <button onclick="showPage('landing')">رجوع</button>
+      </section>
+
+      <!-- Registration Page -->
+      <section id="register" class="page">
+        <h2>إنشاء حساب طالب</h2>
+        <input type="text" id="fullName" placeholder="الاسم الكامل" />
+        <input type="number" id="age" placeholder="العمر" />
+        
+        <label>الصف الدراسي:</label>
+        <select id="grade">
+          <option value="kindergarten">رياض الأطفال (اختياري)</option>
+          <option value="1">الصف الأول الابتدائي</option>
+          <option value="2">الصف الثاني الابتدائي</option>
+          <option value="3">الصف الثالث الابتدائي</option>
+          <option value="4">الصف الرابع الابتدائي</option>
+          <option value="5">الصف الخامس الابتدائي</option>
+          <option value="6">الصف السادس الابتدائي</option>
+          <option value="7">الصف الأول متوسط</option>
+          <option value="8">الصف الثاني متوسط</option>
+          <option value="9">الصف الثالث متوسط</option>
+          <option value="10">الصف الأول ثانوي</option>
+          <option value="11">الصف الثاني ثانوي</option>
+          <option value="12">الصف الثالث ثانوي</option>
+        </select>
+        
+        <label>هل تعاني من مرض مزمن؟</label>
+        <select id="illness">
+          <option value="none">لا يوجد</option>
+          <option value="asthma">الربو</option>
+          <option value="diabetes">السكري</option>
+          <option value="allergies">الحساسية</option>
+        </select>
+        
+        <input type="email" id="regEmail" placeholder="البريد الإلكتروني" />
+        <input type="password" id="regPassword" placeholder="كلمة المرور" />
+        
+        <button onclick="registerUser()">تسجيل</button>
+        <button onclick="showPage('landing')">رجوع</button>
+      </section>
+      
+
+      <!-- Symptom Page -->
+      <section id="symptoms" class="page">
+        <h2>اختر الأعراض</h2>
+        <div class="checkbox-group">
+          <label><input type="checkbox" value="Headache" /> صداع</label>
+          <label><input type="checkbox" value="Fever" /> حمى</label>
+          <label><input type="checkbox" value="Dizziness" /> دوخة</label>
+          <label><input type="checkbox" value="Nausea" /> غثيان</label>
+        </div>
+        <div class="button-group">
+          <button onclick="analyzeSymptoms()">تحليل الحالة</button>
+          <button onclick="logout()">تسجيل الخروج</button>
+        </div>
+      </section>
+
+      <!-- Results Page -->
+      <section id="results" class="page">
+        <h2>نتيجة التحليل الصحي</h2>
+        <p id="resultText"></p>
+        <button onclick="showPage('symptoms')">رجوع</button>
+        <button onclick="logout()">تسجيل الخروج</button>
+      </section>
+
+    <!-- Supervisor Page -->
+    <section id="supervisor" class="page">
+      <h2>لوحة تحكم المشرف</h2>
+      <div id="summary" class="summary-box"></div>
+      
+      <label>فلترة حسب الصف:</label>
+      <select id="gradeFilter" onchange="loadStudentData()">
+        <option value="all">الكل</option>
+        <option value="kindergarten">رياض الأطفال (اختياري)</option>
+        <option value="1">الصف الأول الابتدائي</option>
+        <option value="2">الصف الثاني الابتدائي</option>
+        <option value="3">الصف الثالث الابتدائي</option>
+        <option value="4">الصف الرابع الابتدائي</option>
+        <option value="5">الصف الخامس الابتدائي</option>
+        <option value="6">الصف السادس الابتدائي</option>
+        <option value="7">الصف الأول متوسط</option>
+        <option value="8">الصف الثاني متوسط</option>
+        <option value="9">الصف الثالث متوسط</option>
+        <option value="10">الصف الأول ثانوي</option>
+        <option value="11">الصف الثاني ثانوي</option>
+        <option value="12">الصف الثالث ثانوي</option>
+      </select>
+      
+      <button onclick="loadStudentData()">تحديث البيانات</button>
+      
+      <div id="studentList" class="student-list"></div>
+      
+      <button onclick="logout()">تسجيل الخروج</button>
+    </section>    
+
+
+    <script src="/js/lib/localforage.min.js"></script>
+    <script src="/js/custom/main.js"></script>
+  </body>
+</html>
